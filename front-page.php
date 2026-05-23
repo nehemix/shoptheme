@@ -22,10 +22,12 @@ $bundle_desc  = get_theme_mod( 'urban_master_bundle_desc', 'Llevate dos remeras 
                 <small>Ve a Apariencia > Personalizar > 47 CMSHOP - Portada Maestra para subir tu banner (.png o .jpg) de forma dinámica.</small></span>
             </div>
         <?php endif; ?>
+            
+            <a href="#promo-bundle" class="urban-hero-cta">Ver Promo</a>
     </div>
 </div>
 
-<div class="urban-bundle-section">
+<div class="urban-bundle-section" id="promo-bundle">
     <div class="urban-bundle-card">
         <div class="urban-bundle-badge">PACK EXCLUSIVO</div>
         <h3 class="urban-bundle-title"><?php echo esc_html( $bundle_title ); ?></h3>
