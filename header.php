@@ -18,7 +18,7 @@
         ?>
 
         <!-- Botón Hamburguesa -->
-        <div class="urban-mobile-toggle" id="urban-menu-toggle" onclick="document.getElementById('urban-menu-wrapper').classList.toggle('active')">
+        <div class="urban-mobile-toggle" id="urban-menu-toggle" onclick="this.classList.toggle('active'); document.getElementById('urban-menu-wrapper').classList.toggle('active')">
             <span></span><span></span><span></span>
         </div>
 

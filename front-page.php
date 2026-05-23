@@ -3,7 +3,7 @@ get_header();
 
 $banner_url   = get_theme_mod( 'urban_master_banner_url' );
 $hero_text    = get_theme_mod( 'urban_master_hero_text', '' );
-$bundle_title = get_theme_mod( 'urban_master_bundle_title', 'PACK DUO: 2 REMERAS URBANAS' );
+$bundle_title = get_theme_mod( 'urban_master_bundle_title', 'PACK DUO: 2 REMERAS ARIRANG' );
 $bundle_desc  = get_theme_mod( 'urban_master_bundle_desc', 'Llevate dos remeras de la tienda combinándolas como quieras con un precio especial de pack.' );
 ?>
 
@@ -22,8 +22,9 @@ $bundle_desc  = get_theme_mod( 'urban_master_bundle_desc', 'Llevate dos remeras 
                 <small>Ve a Apariencia > Personalizar > 47 CMSHOP - Portada Maestra para subir tu banner (.png o .jpg) de forma dinámica.</small></span>
             </div>
         <?php endif; ?>
-            
-            <a href="#promo-bundle" class="urban-hero-cta">Ver Promo</a>
+    </div>
+    <div class="urban-hero-cta-wrapper">
+        <a href="#promo-bundle" class="urban-hero-cta">Ver Promo</a>
     </div>
 </div>
 

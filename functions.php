@@ -54,7 +54,7 @@ remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 
 add_filter( 'loop_shop_columns', 'urban_master_columns', 999 );
 function urban_master_columns() {
-    return 3;
+    return 2;
 }
 
 function urban_master_customize_register( $wp_customize ) {
