@@ -1,0 +1,634 @@
+/*
+Theme Name: 47 CMSHOP Ultra Urban Master
+Theme URI: http://47cmshop.local/
+Author: AI Developer
+Description: Versión Maestra Final con correcciones para la página de producto individual (Single Product). Arregla visibilidad de botones, cantidad, talles, colores de texto y agrega el carrito al encabezado.
+Version: 6.0.0
+Text Domain: 47cmshop
+*/
+
+:root {
+    --bg-dark: #070707;
+    --bg-card: #121212;
+    --accent-1: #7B2CBF; /* Violeta Principal */
+    --accent-1-hover: #9D4EDD; /* Violeta Claro (Hover) */
+    --accent-2: #3A86FF; /* Azul Brillante */
+    --white: #ffffff;
+    --gray-text: #e0e0e0; /* Gris más claro para resaltar lectura */
+    --font-graffiti: 'Permanent Marker', cursive;
+    --font-main: 'Montserrat', sans-serif;
+}
+
+/* --- RESET & ESTRUCTURA --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark) !important;
+    color: var(--white) !important;
+    font-family: var(--font-main);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* --- CUSTOM SCROLLBAR --- */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--accent-1);
+    border-radius: 6px;
+    border: 3px solid var(--bg-dark);
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-2);
+}
+
+/* --- CABECERA --- */
+.urban-header {
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 3px solid var(--accent-1);
+    padding: 15px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    box-shadow: 0 4px 20px rgba(123, 44, 191, 0.25);
+}
+
+.header-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.urban-header .custom-logo-link {
+    display: inline-block;
+}
+
+.urban-header .custom-logo {
+    max-height: 70px;
+    width: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.urban-header .custom-logo:hover {
+    transform: scale(1.05);
+}
+
+.urban-logo-text {
+    font-family: var(--font-graffiti);
+    font-size: 2.4rem;
+    color: var(--white);
+    text-shadow: 3px 3px 0px var(--accent-2);
+    letter-spacing: 1.5px;
+    text-decoration: none;
+}
+
+/* --- MOBILE MENU TOGGLE --- */
+.urban-mobile-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    padding: 5px;
+}
+.urban-mobile-toggle span {
+    width: 30px;
+    height: 3px;
+    background-color: var(--white);
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+.urban-menu-wrapper {
+    width: 100%;
+    display: none; /* Oculto en móviles hasta hacer click */
+}
+.urban-menu-wrapper.active {
+    display: block;
+}
+
+.urban-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+}
+
+.urban-menu a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.urban-menu a:hover {
+    color: var(--accent-1);
+}
+
+/* Carrito en el Menú */
+.urban-header-cart a {
+    color: var(--accent-1);
+    font-weight: 800;
+    text-decoration: none;
+    border: 2px solid var(--accent-1);
+    padding: 8px 18px;
+    border-radius: 30px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.urban-header-cart a:hover {
+    background: var(--accent-1);
+    color: #000;
+    box-shadow: 0 0 15px var(--accent-1);
+    transform: translateY(-2px);
+}
+
+/* --- CONTENEDOR DE BANNER 16:9 --- */
+.urban-hero-container {
+    max-width: 1300px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.urban-banner-169 {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: linear-gradient(45deg, #111111, #1a1a1a);
+    border: 3px solid var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 6px 6px 0px #000;
+}
+
+.urban-banner-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.urban-banner-169:hover .urban-banner-img {
+    transform: scale(1.03);
+}
+
+.urban-banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.urban-hero-dynamic-title {
+    font-family: var(--font-graffiti);
+    font-size: 2.8rem;
+    color: var(--white);
+    line-height: 1.1;
+    margin: 0;
+    text-transform: uppercase;
+    text-shadow: 4px 4px 0px var(--accent-2);
+    letter-spacing: 2px;
+}
+
+.urban-banner-placeholder-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: var(--font-graffiti);
+    font-size: 1.8rem;
+    color: #555;
+    letter-spacing: 2px;
+    padding: 20px;
+    line-height: 1.4;
+}
+
+/* --- SECCIÓN BUNDLE (PACK RE-MERAS) --- */
+.urban-bundle-section {
+    max-width: 1300px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.urban-bundle-card {
+    background: linear-gradient(135px, #141414 0%, #1a1a10 100%);
+    border: 3px solid var(--accent-1);
+    border-radius: 16px;
+    padding: 40px;
+    position: relative;
+    box-shadow: 8px 8px 0px rgba(0,0,0,0.8), 0 0 20px rgba(123, 44, 191, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.urban-bundle-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 12px 12px 0px rgba(0,0,0,0.9), 0 0 30px rgba(123, 44, 191, 0.4);
+}
+
+.urban-bundle-badge {
+    position: absolute;
+    top: -15px;
+    left: 30px;
+    background-color: var(--accent-2);
+    color: var(--white);
+    font-family: var(--font-graffiti);
+    font-size: 1.1rem;
+    padding: 6px 18px;
+    border-radius: 4px;
+    border: 2px solid #000;
+    box-shadow: 3px 3px 0px #000;
+}
+
+.urban-bundle-title {
+    font-family: var(--font-graffiti);
+    font-size: 2.2rem;
+    color: var(--white);
+    margin: 10px 0 12px 0;
+    text-shadow: 2px 2px 0px #000;
+    text-transform: uppercase;
+}
+
+.urban-bundle-desc {
+    color: var(--gray-text);
+    font-size: 1.1rem;
+    max-width: 750px;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.urban-bundle-container-slot {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px dashed #3a3a3a;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    color: #777;
+    font-size: 1rem;
+}
+
+/* --- CONTENEDOR DE TIENDA / GRILLA DE PRODUCTOS --- */
+.urban-shop-container {
+    max-width: 1300px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.woocommerce-products-header, 
+.woocommerce-breadcrumb,
+.woocommerce-result-count {
+    display: none !important;
+}
+
+.woocommerce-ordering {
+    margin-bottom: 30px !important;
+    float: right;
+}
+
+.woocommerce-ordering select {
+    background-color: #111 !important;
+    color: #fff !important;
+    border: 2px solid var(--accent-1) !important;
+    padding: 8px 15px !important;
+    border-radius: 6px !important;
+}
+
+.woocommerce ul.products, 
+.woocommerce-page ul.products {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 340px)) !important;
+    justify-content: center !important;
+    gap: 35px !important;
+    margin: 0 auto 50px auto !important;
+    padding: 0 !important;
+    clear: both;
+}
+
+.woocommerce ul.products::before, 
+.woocommerce ul.products::after {
+    display: none !important;
+}
+
+.woocommerce ul.products li.product {
+    width: 100% !important;
+    margin: 0 !important;
+    background-color: var(--bg-card) !important;
+    border: 3px solid var(--white) !important;
+    border-radius: 16px !important;
+    padding: 22px !important;
+    box-shadow: 6px 6px 0px #000 !important;
+    transition: all 0.3s ease !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+.woocommerce ul.products li.product:hover {
+    border-color: var(--accent-1) !important;
+    box-shadow: 0 10px 30px rgba(123, 44, 191, 0.25), 6px 6px 0px #000 !important;
+    transform: translateY(-8px) !important;
+}
+
+.woocommerce ul.products li.product a img {
+    border-radius: 10px !important;
+    margin-bottom: 15px !important;
+    background-color: #1a1a1a !important;
+    border: 1px solid #2a2a2a !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__title {
+    font-family: var(--font-graffiti) !important;
+    color: var(--white) !important;
+    font-size: 1.35rem !important;
+    margin: 10px 0 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px;
+    line-height: 1.3 !important;
+}
+
+.woocommerce ul.products li.product .price {
+    color: var(--white) !important;
+    font-weight: 800 !important;
+    font-size: 1.4rem !important;
+    margin-bottom: 15px !important;
+    font-family: var(--font-main) !important;
+}
+
+.woocommerce ul.products li.product .button {
+    background-color: var(--accent-1) !important;
+    color: #000 !important;
+    font-family: var(--font-main) !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    padding: 12px 25px !important;
+    border-radius: 6px !important;
+    border: 2px solid var(--white) !important;
+    width: 100% !important;
+    margin-top: auto !important;
+    transition: all 0.2s ease !important;
+}
+
+.woocommerce ul.products li.product .button:hover {
+    background-color: var(--accent-1-hover) !important;
+    box-shadow: 0 0 15px var(--accent-1-hover) !important;
+    transform: translateY(-2px) !important;
+}
+
+
+/* ==========================================================================
+   CORRECCIONES PARA LA PÁGINA DE PRODUCTO INDIVIDUAL (SINGLE PRODUCT)
+   ========================================================================== */
+
+/* Contenedor principal del producto */
+.woocommerce div.product {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Título del Producto */
+.woocommerce div.product .product_title {
+    font-family: var(--font-graffiti);
+    color: var(--white);
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0px var(--accent-2);
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+/* Precio en la página del producto */
+.woocommerce div.product p.price, 
+.woocommerce div.product span.price {
+    color: var(--accent-1) !important;
+    font-size: 2rem !important;
+    font-weight: 800;
+    margin-bottom: 25px;
+}
+
+/* Texto de disponibilidad de stock (cantidad) */
+.woocommerce div.product p.stock {
+    color: var(--white) !important;
+    font-weight: bold;
+}
+
+/* Selector de Talles / Variaciones (Dropdowns) */
+.woocommerce div.product form.cart .variations th {
+    text-align: left;
+    color: var(--gray-text);
+    padding-bottom: 10px;
+    font-weight: normal;
+}
+.woocommerce div.product form.cart .variations label {
+    color: var(--white);
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+
+.woocommerce div.product form.cart .variations select {
+    background-color: #111 !important;
+    color: var(--white) !important;
+    border: 2px solid var(--accent-2) !important;
+    padding: 12px !important;
+    border-radius: 6px !important;
+    width: 100% !important;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    outline: none;
+    margin-bottom: 15px;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23b0b0b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>') !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    background-size: 16px !important;
+}
+
+.woocommerce div.product form.cart .variations select:focus {
+    border-color: var(--accent-1) !important;
+    box-shadow: 0 0 10px rgba(123, 44, 191, 0.3);
+}
+
+/* Botón de limpiar variaciones */
+.woocommerce div.product form.cart .reset_variations {
+    color: var(--accent-2);
+    margin-left: 10px;
+}
+
+/* Input de Cantidad (Quantity) */
+.woocommerce div.product form.cart div.quantity {
+    margin-right: 15px !important;
+}
+
+.woocommerce div.product form.cart div.quantity input.qty {
+    background-color: #111 !important;
+    color: var(--white) !important;
+    border: 2px solid var(--accent-1) !important;
+    padding: 10px !important;
+    border-radius: 6px !important;
+    height: 52px !important;
+    width: 70px !important;
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Botón "Añadir al Carrito" (¡GIGANTE Y VISIBLE!) */
+.woocommerce div.product form.cart .single_add_to_cart_button {
+    background-color: var(--accent-1) !important;
+    color: #000 !important;
+    font-family: var(--font-main);
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 0 35px !important;
+    height: 52px !important;
+    border-radius: 6px !important;
+    border: 3px solid #000 !important;
+    box-shadow: 5px 5px 0px var(--accent-2) !important;
+    transition: all 0.3s ease !important;
+    font-size: 1.1rem !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.woocommerce div.product form.cart .single_add_to_cart_button:hover {
+    background-color: var(--white) !important;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 5px 5px 0px var(--accent-2) !important;
+    transform: translateY(-3px);
+}
+
+.woocommerce div.product form.cart .single_add_to_cart_button:disabled,
+.woocommerce div.product form.cart .single_add_to_cart_button.disabled {
+    background-color: #333 !important;
+    color: #666 !important;
+    box-shadow: none !important;
+    border-color: #444 !important;
+    cursor: not-allowed;
+}
+
+/* Metadatos (Categorías, SKU) */
+.woocommerce div.product .product_meta {
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    color: var(--gray-text);
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.woocommerce div.product .product_meta a {
+    color: var(--accent-1);
+    font-weight: bold;
+}
+
+.woocommerce div.product .product_meta a:hover {
+    color: var(--white);
+}
+
+.woocommerce div.product .product_meta span.sku_wrapper,
+.woocommerce div.product .product_meta span.posted_in {
+    color: var(--white);
+}
+.woocommerce div.product .product_meta span.sku {
+    color: var(--gray-text);
+}
+
+/* Galería de imágenes en Single Product */
+.woocommerce div.product div.images img {
+    border-radius: 12px;
+    border: 2px solid #222;
+    background: #1a1a1a;
+}
+.woocommerce div.product div.images .flex-control-thumbs li img {
+    border-radius: 6px;
+    border: 2px solid transparent;
+}
+.woocommerce div.product div.images .flex-control-thumbs li img.flex-active {
+    border-color: var(--accent-1);
+}
+
+
+/* --- PIE DE PÁGINA --- */
+.urban-footer {
+    background-color: #000;
+    border-top: 3px solid var(--accent-1);
+    padding: 40px 20px;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.urban-footer p {
+    margin: 5px 0;
+    color: var(--gray-text);
+    font-size: 0.95rem;
+}
+
+/* --- ESTILOS DESKTOP (MOBILE FIRST APPROACH) --- */
+@media (min-width: 769px) {
+    .urban-header .custom-logo {
+        max-height: 95px;
+    }
+    .urban-logo-text {
+        font-size: 3rem;
+    }
+    .urban-hero-dynamic-title {
+        font-size: 4.5rem;
+    }
+    .woocommerce div.product .product_title {
+        font-size: 3rem;
+    }
+    .urban-mobile-toggle {
+        display: none;
+    }
+    .urban-menu-wrapper {
+        display: block !important;
+        width: auto;
+    }
+    .urban-menu {
+        flex-direction: row;
+        gap: 25px;
+    }
+}
