@@ -630,5 +630,6 @@ body {
     .urban-menu {
         flex-direction: row;
         gap: 25px;
+            align-items: center;
     }
 }

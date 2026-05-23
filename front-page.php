@@ -32,41 +32,36 @@ $bundle_desc  = get_theme_mod( 'urban_master_bundle_desc', 'Llevate dos remeras 
         <p class="urban-bundle-desc"><?php echo esc_html( $bundle_desc ); ?></p>
         
         <div class="urban-bundle-container-slot">
-            <span>[Espacio reservado para mapear tu publicación Bundle / Pack]</span>
+            <?php
+            // Consulta para traer específicamente el producto Bundle / Pack a la Home
+            $bundle_args = array(
+                'post_type'      => 'product',
+                'posts_per_page' => 1,
+                'tax_query'      => array(
+                    array(
+                        'taxonomy' => 'product_cat',
+                        'field'    => 'slug',
+                        'terms'    => array( 'bundle', 'pack' ), // Utiliza cualquiera de estas categorías en WooCommerce
+                        'operator' => 'IN'
+                    )
+                )
+            );
+            $bundle_product = new WP_Query( $bundle_args );
+
+            if ( $bundle_product->have_posts() ) {
+                woocommerce_product_loop_start();
+                while ( $bundle_product->have_posts() ) {
+                    $bundle_product->the_post();
+                    wc_get_template_part( 'content', 'product' );
+                }
+                woocommerce_product_loop_end();
+            } else {
+                echo '<span>[Crea un producto en WooCommerce y asígnale la categoría "bundle" o "pack" para verlo aquí]</span>';
+            }
+            wp_reset_postdata();
+            ?>
         </div>
     </div>
-</div>
-
-<div class="urban-shop-container">
-    <h2 style="font-family: var(--font-graffiti); color: var(--white); font-size: 2.5rem; text-align: center; margin-bottom: 40px; text-shadow: 2px 2px 0px var(--accent-2); text-transform: uppercase;">Últimos Drops</h2>
-    <?php
-    // Consulta personalizada para traer las remeras a la home (excluyendo el bundle)
-    $args = array(
-        'post_type'      => 'product',
-        'posts_per_page' => 6, // Muestra las 6 remeras más nuevas
-        'tax_query'      => array(
-            array(
-                'taxonomy' => 'product_cat',
-                'field'    => 'slug',
-                'terms'    => array( 'bundle', 'pack' ), // Sigue ocultando el bundle de aquí
-                'operator' => 'NOT IN'
-            )
-        )
-    );
-    $home_products = new WP_Query( $args );
-
-    if ( $home_products->have_posts() ) {
-        woocommerce_product_loop_start();
-        while ( $home_products->have_posts() ) {
-            $home_products->the_post();
-            wc_get_template_part( 'content', 'product' );
-        }
-        woocommerce_product_loop_end();
-    } else {
-        echo '<p style="text-align:center; color: var(--gray-text); font-size: 1.2rem;">Próximos drops muy pronto...</p>';
-    }
-    wp_reset_postdata();
-    ?>
 </div>
 
 <?php get_footer(); ?>
