@@ -1114,12 +1114,34 @@ p.no-comments {
     font-weight: bold;
 }
 
+/* Botones de la página del carrito (Aplicar Cupón, Actualizar Carrito, Finalizar Compra, etc.) */
+.woocommerce-cart .woocommerce .button,
+.woocommerce-cart .woocommerce a.checkout-button {
+    background-color: var(--accent-1) !important;
+    color: var(--white) !important;
+    font-family: var(--font-main) !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    padding: 12px 25px !important;
+    border-radius: 6px !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.woocommerce-cart .woocommerce .button:hover,
+.woocommerce-cart .woocommerce a.checkout-button:hover {
+    background-color: var(--accent-2) !important;
+    box-shadow: var(--neon-glow) !important;
+    transform: translateY(-2px) !important;
+}
+
 /* ==========================================================================
    FORMULARIOS DE WOOCOMMERCE (CHECKOUT, MI CUENTA)
    ========================================================================== */
-.woocommerce form .form-row input.input-text,
-.woocommerce form .form-row textarea,
-.woocommerce form .form-row select,
+.woocommerce input.input-text,
+.woocommerce input.qty,
+.woocommerce textarea,
+.woocommerce select,
 .woocommerce-page .select2-container .select2-selection {
     background: rgba(0, 0, 0, 0.4) !important;
     backdrop-filter: blur(8px) !important;
@@ -1136,9 +1158,10 @@ p.no-comments {
     box-sizing: border-box;
 }
 
-.woocommerce form .form-row input.input-text:focus,
-.woocommerce form .form-row textarea:focus,
-.woocommerce form .form-row select:focus {
+.woocommerce input.input-text:focus,
+.woocommerce input.qty:focus,
+.woocommerce textarea:focus,
+.woocommerce select:focus {
     border-color: var(--accent-1) !important;
     box-shadow: 0 0 15px rgba(138, 43, 226, 0.3) !important;
 }

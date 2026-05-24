@@ -127,3 +127,47 @@ function urban_remove_reviews_tab( $tabs ) {
     unset( $tabs['reviews'] );
     return $tabs;
 }
+
+/**
+ * Ocultar campos de envío y la opción de "Enviar a una dirección diferente" 
+ * cuando se selecciona "Retiro en el local" (Local Pickup) en el checkout.
+ */
+add_action( 'wp_footer', 'urban_hide_shipping_on_local_pickup_js' );
+function urban_hide_shipping_on_local_pickup_js() {
+    if ( function_exists( 'is_checkout' ) && ( is_checkout() || is_cart() ) && ! is_wc_endpoint_url() ) {
+        ?>
+        <script type="text/javascript">
+            jQuery(function($) {
+                function toggleShippingFields() {
+                    var selectedMethod = $('input[name^="shipping_method"]:checked');
+                    var shippingMethod = selectedMethod.val() || '';
+                    var shippingLabel  = selectedMethod.closest('li').text().toLowerCase();
+                    
+                    // Comprobamos si el ID es de WooCommerce o si el texto de la opción contiene la palabra "retiro" (Para plugins como Correo Argentino)
+                    if (shippingMethod.indexOf('local_pickup') >= 0 || shippingLabel.indexOf('retiro') >= 0) {
+                        $('#ship-to-different-address').hide(); // Oculta el checkbox
+                        $('.shipping_address').hide(); // Oculta el formulario de envío si estaba abierto
+                        $('#ship-to-different-address-checkbox').prop('checked', false); // Desmarca la opción por precaución
+                        
+                        // Oculta el texto "Enviar a..." y "Cambiar dirección" en los totales del pedido/carrito
+                        $('.woocommerce-shipping-destination').hide();
+                        $('.woocommerce-shipping-calculator').hide();
+                    } else {
+                        $('#ship-to-different-address').show(); // Lo vuelve a mostrar si elige otro envío
+                        $('.woocommerce-shipping-destination').show();
+                        $('.woocommerce-shipping-calculator').show();
+                    }
+                }
+
+                // Se ejecuta apenas carga la página
+                toggleShippingFields();
+
+                // Se ejecuta cada vez que WooCommerce actualiza el checkout por Ajax (cambios de ciudad, métodos, etc)
+                $(document.body).on('updated_checkout updated_cart_totals updated_shipping_method', function() {
+                    toggleShippingFields();
+                });
+            });
+        </script>
+        <?php
+    }
+}
