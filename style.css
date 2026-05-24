@@ -192,7 +192,7 @@ body {
 }
 
 .urban-menu a {
-    color: var(--white);
+    color: var(--white) !important;
     text-decoration: none;
     font-weight: 700;
     text-transform: uppercase;
@@ -202,12 +202,12 @@ body {
 }
 
 .urban-menu a:hover {
-    color: var(--accent-1);
+    color: var(--accent-1) !important;
 }
 
 /* Botón Carrito */
 .urban-header-cart a {
-    color: var(--white);
+    color: var(--white) !important;
     font-weight: 800;
     text-decoration: none;
     border: 1px solid rgba(138, 43, 226, 0.5);
@@ -223,7 +223,7 @@ body {
 
 .urban-header-cart a:hover {
     background: linear-gradient(45deg, var(--accent-1), var(--accent-2));
-    color: #fff;
+    color: #fff !important;
     border-color: transparent;
     box-shadow: 0 0 25px var(--accent-1);
     transform: translateY(-3px) scale(1.05);
@@ -1114,6 +1114,60 @@ p.no-comments {
     font-weight: bold;
 }
 
+/* ==========================================================================
+   FORMULARIOS DE WOOCOMMERCE (CHECKOUT, MI CUENTA)
+   ========================================================================== */
+.woocommerce form .form-row input.input-text,
+.woocommerce form .form-row textarea,
+.woocommerce form .form-row select,
+.woocommerce-page .select2-container .select2-selection {
+    background: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    color: var(--white) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding: 12px 15px !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.woocommerce form .form-row input.input-text:focus,
+.woocommerce form .form-row textarea:focus,
+.woocommerce form .form-row select:focus {
+    border-color: var(--accent-1) !important;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3) !important;
+}
+
+/* Fondo oscuro para las opciones nativas de cualquier menú desplegable */
+select option {
+    background-color: var(--bg-dark) !important;
+    color: var(--white) !important;
+}
+
+/* Ajustes para el selector de país/provincia (Select2 de WooCommerce) */
+.woocommerce-page .select2-container .select2-selection {
+    height: 48px !important;
+    display: flex;
+    align-items: center;
+}
+.woocommerce-page .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: var(--white) !important;
+}
+.woocommerce-page .select2-dropdown {
+    background-color: var(--bg-dark) !important;
+    border: 1px solid var(--accent-1) !important;
+    color: var(--white) !important;
+}
+.woocommerce-page .select2-container--default .select2-results__option[aria-selected=true], 
+.woocommerce-page .select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: var(--accent-1) !important;
+}
+
 /* --- PIE DE PÁGINA --- */
 .urban-footer {
     content-visibility: auto;
@@ -1228,6 +1282,10 @@ p.no-comments {
     .woocommerce-page ul.products {
         grid-template-columns: repeat(4, 1fr) !important;
     }
+    .woocommerce ul.products li.product {
+        width: calc((100% - 105px) / 4) !important;
+    }
+}   }
     .woocommerce ul.products li.product {
         width: calc((100% - 105px) / 4) !important;
     }
