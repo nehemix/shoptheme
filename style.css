@@ -8,13 +8,14 @@ Text Domain: 47cmshop
 */
 
 :root {
-    --bg-dark: #070707;
-    --bg-card: #121212;
-    --accent-1: #7B2CBF; /* Violeta Principal */
-    --accent-1-hover: #9D4EDD; /* Violeta Claro (Hover) */
-    --accent-2: #3A86FF; /* Azul Brillante */
+    --bg-dark: #090312; /* Deep space purple-black */
+    --bg-card: rgba(20, 10, 35, 0.5);
+    --accent-1: #8A2BE2; /* BTS Purple */
+    --accent-1-hover: #B472FF; 
+    --accent-2: #FF66C4; /* Pink/Magenta para gradientes "Magic Shop" */
+    --neon-glow: 0 0 15px rgba(138, 43, 226, 0.5), 0 0 30px rgba(138, 43, 226, 0.3);
     --white: #ffffff;
-    --gray-text: #e0e0e0; /* Gris más claro para resaltar lectura */
+    --gray-text: #cbbce3; /* Gris purpura claro */
     --font-bts: 'Permanent Marker', cursive;
     --font-main: 'Montserrat', sans-serif;
 }
@@ -53,17 +54,35 @@ body {
     background-color: var(--accent-2);
 }
 
+/* --- GALAXY BACKGROUND (BTS MAGIC SHOP VIBE) --- */
+.bts-magic-shop-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(circle at 50% 0%, #1e0936 0%, var(--bg-dark) 70%);
+    z-index: -1;
+}
+.bts-magic-shop-bg::after {
+    content: '';
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: radial-gradient(var(--white) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.15;
+    will-change: background-position; /* GPU Acceleration solo donde aporta */
+    animation: starsFloat 100s linear infinite;
+}
+@keyframes starsFloat { from { background-position: 0 0; } to { background-position: 0 -1000px; } }
+
 /* --- CABECERA --- */
 .urban-header {
-    background-color: rgba(15, 15, 15, 0.6);
+    background-color: rgba(9, 3, 18, 0.6);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(138, 43, 226, 0.3);
     padding: 15px 30px;
     position: sticky;
     top: 0;
     z-index: 9999;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(138, 43, 226, 0.15);
 }
 
 /* Corrección para que la barra de administración de WordPress no tape el header al hacer scroll */
@@ -105,7 +124,10 @@ body {
     font-family: var(--font-bts);
     font-size: 2.4rem;
     color: var(--white);
-    text-shadow: 3px 3px 0px var(--accent-2);
+    background: linear-gradient(45deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 15px rgba(138,43,226,0.4);
     letter-spacing: 1.5px;
     text-decoration: none;
 }
@@ -175,23 +197,26 @@ body {
 
 /* Carrito en el Menú */
 .urban-header-cart a {
-    color: var(--accent-1);
+    color: var(--white);
     font-weight: 800;
     text-decoration: none;
-    border: 2px solid var(--accent-1);
+    border: 1px solid rgba(138, 43, 226, 0.5);
+    background: rgba(138, 43, 226, 0.1);
     padding: 8px 18px;
     border-radius: 30px;
     transition: all 0.3s;
     display: flex;
     align-items: center;
     gap: 8px;
+    box-shadow: var(--neon-glow);
 }
 
 .urban-header-cart a:hover {
-    background: var(--accent-1);
-    color: #000;
-    box-shadow: 0 0 15px var(--accent-1);
-    transform: translateY(-2px);
+    background: linear-gradient(45deg, var(--accent-1), var(--accent-2));
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 0 25px var(--accent-1);
+    transform: translateY(-3px) scale(1.05);
 }
 
 /* --- CONTENEDOR DE BANNER 16:9 --- */
@@ -206,11 +231,11 @@ body {
     position: relative;
     width: 100%;
     padding-top: 56.25%;
-    background: linear-gradient(45deg, #111111, #1a1a1a);
-    border: 3px solid var(--white);
+    background: linear-gradient(45deg, #090312, #1e0936);
+    border: 2px solid rgba(138, 43, 226, 0.5);
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 6px 6px 0px #000;
+    box-shadow: var(--neon-glow);
 }
 
 .urban-banner-img {
@@ -251,7 +276,7 @@ body {
     line-height: 1.1;
     margin: 0;
     text-transform: uppercase;
-    text-shadow: 4px 4px 0px var(--accent-2);
+    text-shadow: 0 0 10px var(--accent-2), 0 0 20px var(--accent-1), 3px 3px 0px #000;
     letter-spacing: 2px;
 }
 
@@ -281,8 +306,8 @@ body {
 }
 
 .urban-hero-cta {
-    background-color: var(--accent-1);
-    color: #000;
+    background: linear-gradient(45deg, var(--accent-1), var(--accent-2));
+    color: #fff;
     font-family: var(--font-main);
     font-weight: 900;
     font-size: 1rem;
@@ -290,53 +315,66 @@ body {
     text-decoration: none;
     padding: 10px 28px;
     border-radius: 50px;
-    border: 3px solid #000;
-    box-shadow: 4px 4px 0px var(--accent-2);
-    transition: all 0.3s ease;
+    border: none;
+    box-shadow: var(--neon-glow);
+    will-change: box-shadow;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: pulse-button 2s infinite;
+}
+
+@keyframes pulse-button {
+    0% { box-shadow: 0 0 15px rgba(138, 43, 226, 0.5); }
+    50% { box-shadow: 0 0 25px rgba(255, 102, 196, 0.8); }
+    100% { box-shadow: 0 0 15px rgba(138, 43, 226, 0.5); }
 }
 
 .urban-hero-cta:hover {
-    background-color: var(--white);
-    transform: translateY(-4px);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 4px 4px 0px var(--accent-2);
+    background: linear-gradient(45deg, var(--accent-2), var(--accent-1));
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 102, 196, 0.8);
 }
 
 /* --- SECCIÓN BUNDLE (PACK RE-MERAS) --- */
 .urban-bundle-section {
+    content-visibility: auto; /* Evita que el DOM procese estilos si no está en pantalla */
+    contain-intrinsic-size: 500px;
     max-width: 1300px;
-    margin: 50px auto;
-    padding: 0 20px;
+    margin: 20px auto;
+    padding: 30px 20px;
 }
 
 .urban-bundle-card {
-    background: rgba(30, 30, 30, 0.45);
+    background: var(--bg-card);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    border-top: 1px solid rgba(255, 102, 196, 0.3);
     border-radius: 16px;
     padding: 40px;
     position: relative;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(138, 43, 226, 0.05);
+    will-change: transform, box-shadow;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .urban-bundle-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 45px 0 rgba(0, 0, 0, 0.8), var(--neon-glow);
+    border-color: rgba(255, 102, 196, 0.5);
 }
 
 .urban-bundle-badge {
     position: absolute;
     top: -15px;
     left: 30px;
-    background-color: var(--accent-2);
-    color: var(--white);
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+    color: #fff;
     font-family: var(--font-bts);
     font-size: 1.1rem;
     padding: 6px 18px;
     border-radius: 4px;
-    border: 2px solid #000;
-    box-shadow: 3px 3px 0px #000;
+    border: none;
+    box-shadow: var(--neon-glow);
 }
 
 .urban-bundle-title {
@@ -344,7 +382,7 @@ body {
     font-size: 2.2rem;
     color: var(--white);
     margin: 10px 0 12px 0;
-    text-shadow: 2px 2px 0px #000;
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.6), 2px 2px 0px #000;
     text-transform: uppercase;
 }
 
@@ -368,6 +406,8 @@ body {
 
 /* --- CONTENEDOR DE TIENDA / GRILLA DE PRODUCTOS --- */
 .urban-shop-container {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px;
     max-width: 1300px;
     margin: 60px auto;
     padding: 0 20px;
@@ -398,6 +438,8 @@ body {
 .woocommerce-page ul.products {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
     justify-content: center !important;
     gap: 15px !important;
     margin: 0 auto 50px auto !important;
@@ -412,14 +454,16 @@ body {
 
 .woocommerce ul.products li.product {
     width: 100% !important;
+    width: calc((100% - 15px) / 2) !important;
     margin: 0 !important;
-    background: rgba(25, 25, 25, 0.4) !important;
+    background: var(--bg-card) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(138, 43, 226, 0.15) !important;
     border-radius: 16px !important;
     padding: 15px !important;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
+    will-change: transform, box-shadow, border-color !important;
     transition: all 0.3s ease !important;
     display: flex !important;
     flex-direction: column !important;
@@ -428,16 +472,16 @@ body {
 }
 
 .woocommerce ul.products li.product:hover {
-    border-color: rgba(255, 255, 255, 0.3) !important;
-    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6) !important;
+    border-color: var(--accent-2) !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), var(--neon-glow) !important;
     transform: translateY(-8px) !important;
 }
 
 .woocommerce ul.products li.product a img {
     border-radius: 10px !important;
     margin-bottom: 15px !important;
-    background-color: #1a1a1a !important;
-    border: 1px solid #2a2a2a !important;
+    background-color: #120520 !important;
+    border: 1px solid rgba(138, 43, 226, 0.2) !important;
     width: 100% !important;
     height: auto !important;
     display: block;
@@ -462,24 +506,25 @@ body {
 }
 
 .woocommerce ul.products li.product .button {
-    background-color: var(--accent-1) !important;
-    color: #000 !important;
+    background: rgba(138, 43, 226, 0.1) !important;
+    color: var(--white) !important;
     font-family: var(--font-main) !important;
     font-weight: 800 !important;
     text-transform: uppercase !important;
     padding: 10px !important;
     font-size: 0.9rem !important;
     border-radius: 6px !important;
-    border: 2px solid var(--white) !important;
+    border: 1px solid rgba(138, 43, 226, 0.5) !important;
     width: 100% !important;
     margin-top: auto !important;
     transition: all 0.2s ease !important;
 }
 
 .woocommerce ul.products li.product .button:hover {
-    background-color: var(--accent-1-hover) !important;
-    box-shadow: 0 0 15px var(--accent-1-hover) !important;
-    transform: translateY(-2px) !important;
+    background: linear-gradient(45deg, var(--accent-1), var(--accent-2)) !important;
+    border-color: transparent !important;
+    box-shadow: var(--neon-glow) !important;
+    transform: translateY(-3px) !important;
 }
 
 
@@ -500,7 +545,7 @@ body {
     color: var(--white);
     font-size: 2.2rem;
     text-transform: uppercase;
-    text-shadow: 3px 3px 0px var(--accent-1);
+    text-shadow: 0 0 15px rgba(138,43,226,0.6), 2px 2px 0px #000;
     margin-bottom: 15px;
     line-height: 1.2;
 }
@@ -508,7 +553,7 @@ body {
 /* Precio en la página del producto */
 .woocommerce div.product p.price, 
 .woocommerce div.product span.price {
-    color: var(--accent-1) !important;
+    color: var(--accent-2) !important;
     font-size: 2rem !important;
     font-weight: 800;
     margin-bottom: 25px;
@@ -562,6 +607,7 @@ body {
 /* Estilo para las opciones del desplegable de talles/variaciones */
 .woocommerce div.product form.cart .variations select option {
     background-color: var(--bg-card) !important;
+    background-color: var(--bg-dark) !important;
     color: var(--white) !important;
 }
 
@@ -658,8 +704,8 @@ body {
 /* Galería de imágenes en Single Product */
 .woocommerce div.product div.images img {
     border-radius: 12px;
-    border: 2px solid #222;
-    background: #1a1a1a;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    background: #120520;
 }
 .woocommerce div.product div.images .flex-control-thumbs li img {
     border-radius: 6px;
@@ -672,8 +718,11 @@ body {
 
 /* --- PIE DE PÁGINA --- */
 .urban-footer {
-    background-color: #000;
-    border-top: 3px solid var(--accent-1);
+    content-visibility: auto;
+    contain-intrinsic-size: 200px;
+    background-color: #05010a;
+    border-top: 1px solid rgba(138, 43, 226, 0.4);
+    box-shadow: 0 -10px 30px rgba(138, 43, 226, 0.1);
     padding: 40px 20px;
     text-align: center;
     margin-top: 100px;
@@ -683,6 +732,19 @@ body {
     margin: 5px 0;
     color: var(--gray-text);
     font-size: 0.95rem;
+}
+
+/* --- CLASES MODULARES: IntersectionObserver Animations --- */
+.urban-fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+    will-change: opacity, transform;
+}
+.urban-fade-in.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* --- ESTILOS DESKTOP (MOBILE FIRST APPROACH) --- */
@@ -730,8 +792,10 @@ body {
     .woocommerce ul.products, 
     .woocommerce-page ul.products {
         gap: 35px !important;
+        grid-template-columns: repeat(3, 1fr) !important;
     }
     .woocommerce ul.products li.product {
+        width: calc((100% - 70px) / 3) !important;
         padding: 22px !important;
     }
     .woocommerce ul.products li.product .woocommerce-loop-product__title {
@@ -743,5 +807,16 @@ body {
     .woocommerce ul.products li.product .button {
         padding: 12px 25px !important;
         font-size: 1rem !important;
+    }
+}
+
+/* --- PANTALLAS GRANDES (DESKTOP) --- */
+@media (min-width: 1024px) {
+    .woocommerce ul.products, 
+    .woocommerce-page ul.products {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+    .woocommerce ul.products li.product {
+        width: calc((100% - 105px) / 4) !important;
     }
 }

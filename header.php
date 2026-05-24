@@ -7,6 +7,9 @@
 </head>
 <body <?php body_class(); ?>>
 
+<!-- Fondo Mágico BTS (Galaxia) -->
+<div class="bts-magic-shop-bg"></div>
+
 <header class="urban-header">
     <div class="header-container">
         <?php 

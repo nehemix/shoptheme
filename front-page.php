@@ -7,10 +7,11 @@ $bundle_title = get_theme_mod( 'urban_master_bundle_title', 'PACK DUO: 2 REMERAS
 $bundle_desc  = get_theme_mod( 'urban_master_bundle_desc', 'Llevate dos remeras de la tienda combinándolas como quieras con un precio especial de pack.' );
 ?>
 
-<div class="urban-hero-container">
+<div class="urban-hero-container urban-fade-in">
     <div class="urban-banner-169">
         <?php if ( ! empty( $banner_url ) ) : ?>
-            <img src="<?php echo esc_url( $banner_url ); ?>" alt="Banner 47 CMSHOP" class="urban-banner-img">
+            <!-- LCP Image Opt: Eager loading con alta prioridad para mejorar Web Vitals -->
+            <img src="<?php echo esc_url( $banner_url ); ?>" alt="Banner 47 CMSHOP" class="urban-banner-img" fetchpriority="high" decoding="sync">
             <?php if ( ! empty( $hero_text ) ) : ?>
                 <div class="urban-banner-overlay">
                     <h1 class="urban-hero-dynamic-title"><?php echo wp_kses_post( $hero_text ); ?></h1>
@@ -28,7 +29,7 @@ $bundle_desc  = get_theme_mod( 'urban_master_bundle_desc', 'Llevate dos remeras 
     </div>
 </div>
 
-<div class="urban-bundle-section" id="promo-bundle">
+<div class="urban-bundle-section urban-fade-in" id="promo-bundle">
     <div class="urban-bundle-card">
         <div class="urban-bundle-badge">PACK EXCLUSIVO</div>
         <h3 class="urban-bundle-title"><?php echo esc_html( $bundle_title ); ?></h3>

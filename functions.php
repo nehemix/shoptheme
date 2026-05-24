@@ -1,4 +1,9 @@
 <?php
+/**
+ * Configuración principal del tema.
+ * Habilita el soporte para WooCommerce, logos, y estructura base.
+ * @return void
+ */
 function urban_theme_master_setup() {
     add_theme_support( 'woocommerce' );
     add_theme_support( 'wc-product-gallery-zoom' );
@@ -20,13 +25,21 @@ function urban_theme_master_setup() {
 }
 add_action( 'after_setup_theme', 'urban_theme_master_setup' );
 
+/**
+ * Inyección de scripts y estilos principales.
+ * Se mantiene desacoplado para no inflar el <head>.
+ * @return void
+ */
 function urban_theme_master_scripts() {
     wp_enqueue_style( 'urban-fonts', 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Permanent+Marker&display=swap', array(), null );
     wp_enqueue_style( 'urban-style', get_stylesheet_uri(), array(), '6.0.0' );
 }
 add_action( 'wp_enqueue_scripts', 'urban_theme_master_scripts' );
 
-// Menú de fallback automático con Home y Productos
+/**
+ * Menú de fallback automático con Home y Productos.
+ * @return void
+ */
 function urban_default_menu() {
     echo '<li class="menu-item"><a href="' . esc_url( home_url( '/' ) ) . '">Home</a></li>';
     if ( class_exists( 'WooCommerce' ) ) {
@@ -52,9 +65,12 @@ function urban_exclude_bundle_category( $q ) {
 // Elimina los widgets sueltos (Buscar, Páginas, etc.) de las páginas de productos
 remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 
+// Elimina los metadatos (SKU, Categorías y Etiquetas) de la página de producto individual
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+
 add_filter( 'loop_shop_columns', 'urban_master_columns', 999 );
 function urban_master_columns() {
-    return 2;
+    return 4;
 }
 
 function urban_master_customize_register( $wp_customize ) {

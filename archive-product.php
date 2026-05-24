@@ -3,8 +3,8 @@ get_header();
 
 ?>
 
-<div class="urban-shop-container">
-    <h1 style="font-family: var(--font-bts); color: var(--white); font-size: 3rem; text-shadow: 3px 3px 0px var(--accent-1); text-transform: uppercase; text-align: center; margin-bottom: 40px;">
+<div class="urban-shop-container urban-fade-in">
+    <h1 style="font-family: var(--font-bts); color: var(--white); font-size: 3rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.6), 2px 2px 0px #000; text-transform: uppercase; text-align: center; margin-bottom: 40px;">
         <?php woocommerce_page_title(); ?>
     </h1>
 
