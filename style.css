@@ -98,11 +98,19 @@ body {
 .header-container {
     max-width: 1300px;
     margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    flex-wrap: wrap;
     gap: 15px;
+}
+
+.header-logo-wrapper {
+    justify-self: center;
+    display: flex;
+}
+
+.header-cart-wrapper {
+    justify-self: end;
 }
 
 .urban-header .custom-logo-link {
@@ -136,6 +144,7 @@ body {
 .urban-mobile-toggle {
     display: flex;
     flex-direction: column;
+    justify-self: start;
     gap: 6px;
     cursor: pointer;
     padding: 5px;
@@ -161,6 +170,7 @@ body {
 
 .urban-menu-wrapper {
     width: 100%;
+    grid-column: 1 / -1;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
@@ -195,7 +205,7 @@ body {
     color: var(--accent-1);
 }
 
-/* Carrito en el Menú */
+/* Botón Carrito */
 .urban-header-cart a {
     color: var(--white);
     font-weight: 800;
@@ -716,6 +726,394 @@ body {
 }
 
 
+/* ==========================================================================
+   TABS DE PRODUCTO (DESCRIPCIÓN, INFO ADICIONAL, VALORACIONES)
+   ========================================================================== */
+
+/* Contenedor general de pestañas */
+.woocommerce div.product .woocommerce-tabs {
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(138, 43, 226, 0.3);
+    clear: both;
+}
+
+/* Lista de pestañas */
+.woocommerce div.product .woocommerce-tabs ul.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 0 0 30px 0;
+    padding: 0;
+    list-style: none;
+    border: none;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs::before {
+    display: none; /* Eliminar bordes por defecto de WooCommerce */
+}
+
+/* Enlaces de pestañas */
+.woocommerce div.product .woocommerce-tabs ul.tabs li {
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    transition: all 0.3s ease !important;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li::before,
+.woocommerce div.product .woocommerce-tabs ul.tabs li::after {
+    display: none !important;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li a {
+    color: var(--gray-text) !important;
+    font-family: var(--font-bts) !important;
+    font-size: 1.2rem !important;
+    padding: 12px 25px !important;
+    display: block !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
+
+/* Estado activo y hover de las pestañas */
+.woocommerce div.product .woocommerce-tabs ul.tabs li:hover,
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active {
+    background: rgba(138, 43, 226, 0.1) !important;
+    border-color: var(--accent-1) !important;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3) !important;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a,
+.woocommerce div.product .woocommerce-tabs ul.tabs li:hover a {
+    color: var(--white) !important;
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.8) !important;
+}
+
+/* Paneles de contenido */
+.woocommerce div.product .woocommerce-tabs .panel {
+    color: var(--gray-text);
+    line-height: 1.8;
+}
+
+.woocommerce div.product .woocommerce-tabs .panel h2 {
+    font-family: var(--font-bts);
+    color: var(--white);
+    font-size: 2rem;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.4);
+    text-transform: uppercase;
+}
+
+/* --- INFORMACIÓN ADICIONAL (TABLA) --- */
+.woocommerce table.shop_attributes {
+    border: 1px solid rgba(138, 43, 226, 0.2) !important;
+    border-radius: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    background: var(--bg-card);
+}
+
+.woocommerce table.shop_attributes th,
+.woocommerce table.shop_attributes td {
+    padding: 15px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    font-style: normal !important;
+    color: var(--gray-text) !important;
+}
+
+.woocommerce table.shop_attributes th {
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--white) !important;
+    font-weight: 700;
+    width: 30%;
+    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.woocommerce table.shop_attributes tr:last-child th,
+.woocommerce table.shop_attributes tr:last-child td {
+    border-bottom: none !important;
+}
+
+.woocommerce table.shop_attributes p {
+    margin: 0;
+    padding: 0;
+}
+
+/* --- VALORACIONES (REVIEWS) --- */
+.woocommerce #reviews #comments ol.commentlist {
+    padding: 0;
+}
+
+.woocommerce #reviews #comments ol.commentlist li {
+    margin-bottom: 25px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    list-style: none;
+}
+
+.woocommerce #reviews #comments ol.commentlist li img.avatar {
+    background: var(--bg-dark);
+    border: 2px solid var(--accent-1);
+    padding: 3px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+}
+
+.woocommerce #reviews #comments ol.commentlist li .comment-text {
+    border: none;
+    padding: 0;
+    margin-left: 80px;
+    border-radius: 0;
+}
+
+.woocommerce #reviews #comments ol.commentlist li .comment-text p.meta {
+    color: var(--gray-text);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+.woocommerce #reviews #comments ol.commentlist li .comment-text p.meta strong {
+    color: var(--white);
+    font-size: 1.1rem;
+}
+
+.woocommerce #reviews #comments ol.commentlist li .comment-text .description {
+    color: var(--gray-text);
+}
+
+/* Estrellas de valoración */
+.woocommerce .star-rating {
+    color: var(--accent-2) !important;
+}
+
+/* Formulario de Valoración */
+.woocommerce #review_form #respond {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    border-radius: 16px;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+.woocommerce #review_form #respond .comment-reply-title {
+    font-family: var(--font-bts);
+    color: var(--white);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.woocommerce #review_form #respond p {
+    color: var(--gray-text);
+}
+
+.woocommerce #review_form #respond label {
+    color: var(--white);
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Inputs y Textarea (Eliminar fondo blanco) */
+.woocommerce #review_form #respond input[type="text"],
+.woocommerce #review_form #respond input[type="email"],
+.woocommerce #review_form #respond textarea {
+    background: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    color: var(--white) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding: 15px !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.woocommerce #review_form #respond input[type="text"]:focus,
+.woocommerce #review_form #respond input[type="email"]:focus,
+.woocommerce #review_form #respond textarea:focus {
+    border-color: var(--accent-1) !important;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3) !important;
+}
+
+/* Estrellas seleccionables en el formulario */
+.woocommerce p.stars a {
+    color: var(--accent-2) !important;
+}
+
+/* Botón de Enviar (Submit) */
+.woocommerce #review_form #respond .form-submit input.submit {
+    background: linear-gradient(45deg, var(--accent-1), var(--accent-2)) !important;
+    color: #fff !important;
+    font-family: var(--font-main);
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 12px 30px !important;
+    border-radius: 50px !important;
+    border: none !important;
+    box-shadow: var(--neon-glow) !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer;
+    font-size: 1rem !important;
+}
+
+.woocommerce #review_form #respond .form-submit input.submit:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 102, 196, 0.6) !important;
+}
+
+/* ==========================================================================
+   AVISOS Y CARRITO VACÍO (WOOCOMMERCE MESSAGES)
+   ========================================================================== */
+.woocommerce-message, 
+.woocommerce-info, 
+.woocommerce-error, 
+.woocommerce-noreviews, 
+p.no-comments {
+    background: var(--bg-card) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(138, 43, 226, 0.4) !important;
+    border-top: 3px solid var(--accent-1) !important;
+    border-radius: 12px !important;
+    color: var(--white) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
+    padding: 20px !important;
+    margin-bottom: 30px !important;
+    line-height: 1.6 !important;
+    position: relative !important;
+}
+
+.woocommerce-message, 
+.woocommerce-info {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 15px !important;
+}
+
+.woocommerce-message::before, 
+.woocommerce-info::before, 
+.woocommerce-error::before {
+    color: var(--accent-2) !important;
+    position: static !important;
+    display: inline-block !important;
+    margin-right: 5px !important;
+}
+
+.woocommerce-message a,
+.woocommerce-info a,
+.woocommerce-error a {
+    color: var(--white) !important;
+    font-weight: bold;
+    text-decoration: underline !important;
+}
+
+/* Separar el botón del texto y darle estilo */
+.woocommerce-message .button,
+.woocommerce-info .button {
+    order: 2 !important; /* Mueve el botón después del texto */
+    margin-left: auto !important; /* Lo empuja a la derecha */
+    float: none !important;
+    background: rgba(138, 43, 226, 0.2) !important;
+    border: 1px solid var(--accent-1) !important;
+    color: var(--white) !important;
+    border-radius: 50px !important;
+    padding: 8px 20px !important;
+    text-transform: uppercase !important;
+    font-size: 0.9rem !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+}
+
+.woocommerce-message .button:hover,
+.woocommerce-info .button:hover {
+    background: var(--accent-1) !important;
+    box-shadow: var(--neon-glow) !important;
+}
+
+.woocommerce-message a:hover,
+.woocommerce-info a:hover,
+.woocommerce-error a:hover {
+    color: var(--accent-2) !important;
+}
+
+/* Específico para Carrito Vacío */
+.woocommerce p.cart-empty {
+    text-align: center;
+    font-family: var(--font-bts);
+    font-size: 2.5rem;
+    margin-top: 50px;
+    color: var(--white);
+    text-shadow: 0 0 15px rgba(138, 43, 226, 0.6), 2px 2px 0px #000;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+.woocommerce p.cart-empty::before {
+    display: none !important;
+}
+
+/* Botón Volver a la Tienda */
+.woocommerce p.return-to-shop {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.woocommerce p.return-to-shop a.button.wc-backward {
+    background: linear-gradient(45deg, var(--accent-1), var(--accent-2)) !important;
+    color: #fff !important;
+    font-family: var(--font-main);
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 15px 40px !important;
+    border-radius: 50px !important;
+    border: none !important;
+    box-shadow: var(--neon-glow) !important;
+    transition: all 0.3s ease !important;
+    font-size: 1.1rem !important;
+    display: inline-block;
+}
+
+.woocommerce p.return-to-shop a.button.wc-backward:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 102, 196, 0.8) !important;
+}
+
+/* ==========================================================================
+   ENLACES EN CHECKOUT Y CARRITO (Eliminar letras azules por defecto)
+   ========================================================================== */
+.woocommerce a:not(.button):not(.urban-hero-cta), 
+.woocommerce-page a:not(.button):not(.urban-hero-cta) {
+    color: var(--accent-2);
+    transition: color 0.3s ease;
+}
+
+.woocommerce a:not(.button):not(.urban-hero-cta):hover, 
+.woocommerce-page a:not(.button):not(.urban-hero-cta):hover {
+    color: var(--accent-1);
+}
+
+.woocommerce-checkout .woocommerce-terms-and-conditions-wrapper a,
+.woocommerce-checkout .woocommerce-privacy-policy-text a {
+    color: var(--white) !important;
+    text-decoration: underline !important;
+    font-weight: bold;
+}
+
 /* --- PIE DE PÁGINA --- */
 .urban-footer {
     content-visibility: auto;
@@ -749,6 +1147,17 @@ body {
 
 /* --- ESTILOS DESKTOP (MOBILE FIRST APPROACH) --- */
 @media (min-width: 769px) {
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
+    .header-logo-wrapper {
+        order: 1;
+    }
+    .header-cart-wrapper {
+        order: 3;
+    }
     .urban-header .custom-logo {
         max-height: 95px;
     }
@@ -771,6 +1180,9 @@ body {
         opacity: 1;
         overflow: visible;
         margin-top: 0;
+        order: 2;
+        margin-left: auto;
+        margin-right: 25px;
     }
     .urban-menu {
         flex-direction: row;

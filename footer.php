@@ -24,6 +24,20 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Selecciona los componentes modulares y los observa
     document.querySelectorAll('.urban-fade-in').forEach(el => observer.observe(el));
+
+    // Ocultar mensaje de depuración de envío de WooCommerce (Incluso tras actualizar por AJAX)
+    const hideWooShippingNotices = () => {
+        document.querySelectorAll('.woocommerce-info, .woocommerce-message, ul.woocommerce-error li').forEach(notice => {
+            if(notice.innerText.includes('Zona de coincidencia') || notice.innerText.includes('Customer matched zone')) {
+                notice.style.display = 'none';
+            }
+        });
+    };
+    hideWooShippingNotices();
+
+    if (typeof jQuery !== 'undefined') {
+        jQuery(document.body).on('updated_checkout updated_shipping_method updated_cart_totals', hideWooShippingNotices);
+    }
 });
 </script>
 

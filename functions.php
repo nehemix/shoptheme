@@ -120,3 +120,10 @@ function urban_master_customize_register( $wp_customize ) {
     ) );
 }
 add_action( 'customize_register', 'urban_master_customize_register' );
+
+// Eliminar la pestaña de Valoraciones (Reviews) de la página de producto individual
+add_filter( 'woocommerce_product_tabs', 'urban_remove_reviews_tab', 98 );
+function urban_remove_reviews_tab( $tabs ) {
+    unset( $tabs['reviews'] );
+    return $tabs;
+}
